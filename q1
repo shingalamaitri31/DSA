@@ -1,0 +1,48 @@
+class Solution {
+public:
+
+    void solve(string &s, int idx, int parts,
+               string curr, vector<string> &res) {
+
+        int n = s.size();
+
+        // Valid IP found
+        if (idx == n && parts == 4) {
+            curr.pop_back(); // remove last '.'
+            res.push_back(curr);
+            return;
+        }
+
+        // Invalid
+        if (idx == n || parts == 4)
+            return;
+
+        for (int len = 1; len <= 3 && idx + len <= n; len++) {
+
+            string part = s.substr(idx, len);
+
+            // Leading zero check
+            if (part.size() > 1 && part[0] == '0')
+                break;
+
+            int num = stoi(part);
+
+            if (num <= 255) {
+                solve(s,
+                      idx + len,
+                      parts + 1,
+                      curr + part + ".",
+                      res);
+            }
+        }
+    }
+
+    vector<string> generateIp(string &s) {
+
+        vector<string> res;
+
+        solve(s, 0, 0, "", res);
+
+        return res;
+    }
+};

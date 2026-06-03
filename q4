@@ -1,0 +1,31 @@
+class Solution {
+  public:
+  int row[9][10]={0};
+  int col[9][10]={0};
+  int box[9][10]={0};
+  bool solve(vector<vector<int>> &mat,int i,int j){
+      if(i==9){return true;
+      } int nc=j+1; int nr=i;
+      if(nc==9){nc=0;nr=i+1;}
+    if(mat[i][j]==0){
+        for(int val=1;val<=9;val++){
+if(!row[i][val]&&!col[j][val]&&!box[(i/3)*3+(j/3)][val]){
+          row[i][val]=1;  
+                  col[j][val]=1;
+          box[(i/3)*3+(j/3)][val]=1;
+       mat[i][j]=val;
+ if(solve(mat,nr,nc)){return true;}
+                      mat[i][j]=0;
+                      row[i][val]=0;
+                     col[j][val]=0;
+                      box[(i/3)*3+(j/3)][val]=0;}
+        }  } else{return solve(mat,nr,nc);} return false;  }
+    void solveSudoku(vector<vector<int>> &mat) {
+        int r=mat.size();int c=mat[0].size();
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(mat[i][j]!=0){
+                    row[i][mat[i][j]]=1;
+                     col[j][mat[i][j]]=1;
+                      box[(i/3)*3+(j/3)][mat[i][j]]=1;}}   }
+        solve(mat,0,0); } };

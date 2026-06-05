@@ -1,0 +1,41 @@
+/*Structure of a Tree Node
+class Node {
+  public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};
+*/
+
+class Solution {
+  public:
+  unordered_map<string,bool>vis;
+  bool found=false;
+  string solve(Node* root){
+    
+    if(root==NULL){
+        return "N";
+    }
+    
+    string left=solve(root->left);
+    string right=solve(root->right);
+    string now=to_string(root->data)+","+left+","+right;
+    
+    if(root->left||root->right){
+         if( vis[now]==true){
+             found=true;
+         }
+    } vis[now]=true;
+     return now;
+  }
+
+    bool dupSub(Node* root) {
+       solve(root);
+        return found;
+    }
+};

@@ -1,0 +1,24 @@
+class kStacks {
+    vector<vector<int>> arr;
+    vector<int> top;
+
+public:
+    kStacks(int n, int k) {
+        arr.resize(k, vector<int>(n));
+        top.resize(k, -1);
+    }
+
+    void push(int x, int i) {
+        top[i]++;
+        arr[i][top[i]] = x;
+    }
+
+    int pop(int i) {
+        if(top[i] == -1)
+            return -1;
+
+        int val = arr[i][top[i]];
+        top[i]--;
+        return val;
+    }
+};

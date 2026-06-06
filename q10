@@ -1,0 +1,54 @@
+class Solution {
+  public:
+    int findMaxProduct(vector<int>& arr) {
+
+        const long long MOD = 1000000007;
+
+        int negCnt = 0, zeroCnt = 0;
+        int maxNeg = INT_MIN;
+
+        vector<int> nums;
+
+        for (int x : arr) {
+
+            if (x == 0) {
+                zeroCnt++;
+                continue;
+            }
+
+            nums.push_back(x);
+
+            if (x < 0) {
+                negCnt++;
+                maxNeg = max(maxNeg, x);
+            }
+        }
+
+        if (nums.empty())
+            return 0;
+
+        if (negCnt == 1 && nums.size() == 1)
+            return zeroCnt ? 0 : nums[0];
+
+        long long ans = 1;
+
+        bool removed = false;
+
+        for (int x : nums) {
+
+            if (negCnt % 2==1 && x == maxNeg && !removed) {
+                removed = true;
+                continue;
+            }
+
+            long long val = x;
+
+            val %= MOD;
+            
+
+            ans = (ans * val) % MOD;
+        }
+
+        return abs((int)ans;
+    }
+};

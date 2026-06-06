@@ -1,0 +1,17 @@
+class Solution {
+  public:
+    vector<int> maxMeetings(vector<int> &s, vector<int> &f) {
+        vector<vector<int>>arr; int n=s.size();
+        for(int i=0;i<n;i++){
+            arr.push_back({f[i],s[i],i+1});
+        }
+        sort(arr.begin(),arr.end());
+        int end=-1; vector<int>ans;
+        for(int i=0;i<n;i++){
+            if(arr[i][1]>end){
+                ans.push_back(arr[i][2]); end=arr[i][0];
+            }
+        } sort(ans.begin(),ans.end());
+        return ans;
+    }
+};

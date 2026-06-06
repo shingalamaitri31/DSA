@@ -1,0 +1,45 @@
+class Node {
+    int data;
+    Node *next;
+
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+*/
+class Solution {
+  public:
+    Node* deleteNode(Node* head, int key) {
+        // code here
+       if(head->data==key){
+    
+    // Single node case
+    if(head->next==head){
+        delete head;
+        return NULL;
+    }
+
+    Node* tail=head;
+    while(tail->next!=head){
+        tail=tail->next;
+    }
+
+    Node* newHead=head->next;
+    tail->next=newHead;
+
+    delete head;
+    return newHead;
+}
+        Node* forw=head;
+        while(forw->next!=head&&forw->next->data!=key){
+            forw=forw->next;
+        }
+        if(forw->next==head){return head;}
+        Node* next=forw->next->next;
+         forw->next->next=NULL;
+         forw->next=next;
+        return head;
+        
+    }
+};

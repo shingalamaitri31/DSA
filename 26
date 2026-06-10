@@ -1,0 +1,27 @@
+//523
+class Solution {
+  public:
+  int solve(int idx1,int idx2,int n1,int n2,string& s1, string& s2,
+  vector<vector<int>>&dp){
+      if(dp[idx1][idx2]!=-1){
+          return dp[idx1][idx2];
+      } 
+      
+      if(idx2==n2){return n1-idx1;}
+      if(idx1==n1){return n2-idx2;}
+      if(s1[idx1] == s2[idx2]){
+    return dp[idx1][idx2] =
+           solve(idx1+1, idx2+1, n1, n2, s1, s2, dp);
+}
+      int insert=1+solve(idx1,idx2+1,n1,n2,s1,s2,dp);
+      int delet=1+solve(idx1+1,idx2,n1,n2,s1,s2,dp);
+      int replece=1+solve(idx1+1,idx2+1,n1,n2,s1,s2,dp);
+      dp[idx1][idx2]=min(insert,min(delet,replece));
+      return min(insert,min(delet,replece));
+  }
+    int editDistance(string& s1, string& s2) {
+        int n1=s1.size(); int n2=s2.size();
+        vector<vector<int>>dp(n1+1,vector<int>(n2+1,-1));
+          return solve(0,0,n1,n2,s1,s2,dp);
+    }
+};

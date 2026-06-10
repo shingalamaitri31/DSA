@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    int ans=1;
+    int solve(Node* root,unordered_map<Node*,pair<int,int>>&store){
+        if(root==NULL){
+            store[root]={INT_MAX,INT_MIN};return 0;}
+            
+        int left=solve(root->left,store);
+        int right=solve(root->right,store);
+        if(left==-1||right==-1){return -1;}
+        if(root->data<=store[root->left].second||root->data>=store[root->right].first){
+            return -1; }
+            store[root]={min(root->data,store[root->left].first)
+            ,max(root->data,store[root->right].second)};
+            ans=max(left+right+1,ans);
+            return left+right+1; }
+  int largestBst(Node *root) {
+        // EVERY TIME IS YOUR OPPORTUNITY,USE IT WELL,SO U WILL PROUD .
+        if(root==NULL){return 0;}
+        unordered_map<Node*,pair<int,int> >store;
+        solve(root,store); return ans;
+        
+    }
+};

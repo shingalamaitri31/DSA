@@ -1,0 +1,22 @@
+//9-6
+class Solution {
+public:
+    vector<int> singleNum(vector<int>& arr) {
+        int xr = 0;
+        for(int x : arr)
+            xr ^= x;
+
+    
+        int setBit = xr & (-xr);
+
+        int a = 0, b = 0;
+        for(int x : arr) {
+            if(x & setBit)
+                a ^= x;
+            else
+                b ^= x;
+        } if(a > b) swap(a, b);
+
+        return {a, b};
+    }
+};

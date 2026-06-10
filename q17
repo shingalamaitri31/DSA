@@ -1,0 +1,17 @@
+class Solution {
+  public:
+  int leaf=-1;
+  bool ans=true;
+  void inordered(Node* root,int level){    if(root==NULL){return ;}
+      if(root->left==NULL && root->right==NULL){
+          if(leaf==-1){leaf=level;}
+          else{ if(leaf!=level){ans=false;}} return ; }
+       inordered(root->left,level+1);
+       inordered(root->right,level+1);
+}
+  bool check(Node* root) {
+        inordered(root,0);
+        
+        return ans;
+    }
+};

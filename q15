@@ -1,0 +1,26 @@
+class Solution {
+  public:
+  int n=0;
+  void sol(Node* root,int &val, unordered_map<Node*,int>&store){ if(root==NULL){return;}
+      sol(root->left,val,store);
+      if(store[root]==(n+1)/2){val=root->data;}
+      sol(root->right,val,store);
+  }
+  
+  void  solve(Node* root,unordered_map<Node*,int>&store,int &level){
+      if(root==NULL){return;}
+      solve(root->left,store,level);
+      level++;
+      store[root]=level;
+      n=max(n,level);
+      
+      solve(root->right,store,level);
+  }
+    int findMedian(Node* root) {
+        unordered_map<Node*,int>store;int lec=0;
+        solve(root,store,lec);
+        int val=root->data;
+        sol(root,val,store);
+        return val;
+    }
+};

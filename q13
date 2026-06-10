@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findLongestChain(vector<vector<int>>& pairs) {
+        vector<vector<int>>store;
+        for(int i=0;i<pairs.size();i++){
+     store.push_back({pairs[i][1],pairs[i][0]}); }
+ int count=0; int end=INT_MIN;
+ sort(store.begin(),store.end());
+ for(int i=0;i<pairs.size();i++){
+   if(store[i][1]>end){count++; end=store[i][0];}
+ }
+return count;
+
+ }
+};

@@ -1,0 +1,23 @@
+
+class Solution {
+  public:
+  int solve(int idx,int size,int k,int n,vector<vector<int>>&dp,vector<int> arr){
+      if(idx>=n){return 0;}
+      if(dp[idx][size]!=-1){return dp[idx][size];}
+      if(size==0){
+          return dp[idx][size]=solve(idx+1,arr[idx],k,n,dp,arr);  }
+          else if(size+1+arr[idx]<=k){ int space=(k-size)*(k-size);
+           return dp[idx][size]= min(space+solve(idx+1,arr[idx],k,n,dp,arr)
+           ,solve(idx+1,size+1+arr[idx],k,n,dp,arr));   
+          }
+          else{int space=(k-size)*(k-size);
+              return dp[idx][size]=space+solve(idx+1,arr[idx],k,n,dp,arr);
+          }
+  }
+    int solveWordWrap(vector<int> arr, int k) {
+        int n=arr.size();
+        vector<vector<int>>dp(n+1,vector<int>(k+1,-1));
+        returnS  solve(0,0,k,n,dp,arr);
+        
+    }
+};

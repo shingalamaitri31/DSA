@@ -1,0 +1,67 @@
+class Solution {
+public:
+    
+    void inorder(vector<int>& arr, int idx, vector<int>& in) {
+        if(idx >= arr.size()) return;
+
+        inorder(arr, 2 * idx + 1, in);
+        in.push_back(arr[idx]);
+        inorder(arr, 2 * idx + 2, in);
+    }
+
+    int minSwaps(vector<int>& arr) {
+        vector<int> in;
+        inorder(arr, 0, in);
+
+        int n = in.size();
+
+        vector<pair<int,int>> vp;
+        for(int i = 0; i < n; i++) {
+            vp.push_back({in[i], i});
+        }
+
+        sort(vp.begin(), vp.end());
+
+        vector<bool> vis(n, false);
+        int swaps = 0;
+
+        for(int i = 0; i < n; i++) {
+
+            if(vis[i] || vp[i].second == i)
+                continue;
+
+            int cycleSize = 0;
+            int j = i;
+
+            while(!vis[j]) {
+                vis[j] = true;
+                j = vp[j].second;
+                cycleSize++;
+            }
+
+            swaps += (cycleSize - 1);
+        }
+
+        return swaps;
+    }
+};
+//542
+class Solution {
+  public:
+    vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
+          vector<pair<int, int>>ans;
+          Node* c=head; int count=0;
+          while(c->next!=NULL){
+              count++;c=c->next;  }
+              int s=0; int e=count;
+             
+              while(s<e){ int sd=head->data;int ed=c->data;
+                  if(sd+ed>target){e--;c=c->prev;}
+                  else if(sd+ed<target){s++;head=head->next;}
+                  else{
+                      ans.push_back({sd,ed});s++;e--;
+                      c=c->prev; head=head->next;
+                  }
+              } return ans;
+    }
+};

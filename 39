@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n; int mini=INT_MAX;
+        int maxi=INT_MIN;
+        for(int i=0;i<n;i++){
+            int l;cin>>l;
+            mini=min(mini,l);maxi=max(maxi,l);
+        }
+         cout<<maxi+1-mini<<endl;
+    }
+}

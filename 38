@@ -1,0 +1,23 @@
+class Solution {
+  public:
+  bool solve(Node* root,unordered_map<Node*,int>&store){
+      if(root==NULL){return true;}
+      if(root->left==NULL&&root->right==NULL){store[root]=root->data; return true;}
+        bool left=solve(root->left,store);
+             bool right=solve(root->right,store);
+      if(root->left&&store[root->left]==-1||root->right&&store[root->right]==-1){
+          store[root]=-1;
+          return false;} int sum=0;
+          if(root->left){sum+=store[root->left];}
+          if(root->right){sum+=store[root->right];}
+          if(root->data!=sum){store[root]=-1; return false;}
+          else{store[root]=sum*2;}
+             
+          return left&&right;
+  }
+    bool isSumTree(Node* root) {
+        // Your code here
+        unordered_map<Node*,int>store;
+       return  solve(root,store);
+    }
+};

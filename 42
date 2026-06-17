@@ -1,0 +1,21 @@
+class Solution {
+  public:
+    // function to sort a k sorted doubly linked list
+    DLLNode *sortAKSortedDLL(DLLNode *head, int k) {
+        priority_queue<int,vector<int >,greater<int>>q;
+        DLLNode* a=head;
+        for(int i=0;i<=k&&a!=NULL;i++){
+            q.push(a->data);a=a->next; }
+            DLLNode* ans=head;
+            while(ans!=NULL){
+                   auto top=q.top();q.pop();
+                ans->data=top;
+                if(a!=NULL){q.push(a->data); a=a->next;}
+              ans=ans->next;
+            }
+        
+        return head;
+        
+        
+    }
+};

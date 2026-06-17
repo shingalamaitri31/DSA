@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    int secFrequent(vector<string> &arr) {
+
+        if(arr.empty()) return -1;
+
+        unordered_map<string,int> mp;
+
+        for(auto &s : arr)
+            mp[s]++;
+
+        if(mp.size() <= 1) return -1;
+
+        int first = 0, second = 0;
+
+        for(auto &it : mp) {
+            int freq = it.second;
+
+            if(freq > first) {
+                second = first;
+                first = freq;
+            }
+            else if(freq < first && freq > second) {
+                second = freq;
+            }
+        }
+
+        return (second == 0 ? -1 : second);
+    }
+};
